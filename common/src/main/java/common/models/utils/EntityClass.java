@@ -10,8 +10,8 @@ import java.io.Serializable;
  */
 public interface EntityClass<IDClass extends java.io.Serializable> extends Serializable {
 
-    //得到主键
-    public IDClass getId();
+//得到主键
+public IDClass getId();
 
-    public void setId(IDClass id);
-}
+public void setId(IDClass id);
+        }

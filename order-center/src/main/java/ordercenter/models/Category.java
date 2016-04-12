@@ -1,31 +1,62 @@
 package ordercenter.models;
 
-import common.models.utils.EntityClass;
-import common.models.utils.OperableData;
+import ordercenter.constants.CategoryType;
+import org.hibernate.annotations.Type;
 import org.joda.time.DateTime;
+import javax.persistence.Basic;
+import javax.persistence.Column;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 
 /**
- * Created by lzadmin on 2016/4/12 0012.
- * category(分类表)表实体类
+ * Created by llz on 2016/4/12.
  */
-public class Category implements EntityClass<Integer> ,OperableData {
-    private  Integer id;
-//    父编号，父编号与id相关联
-    private  Integer pid;
-
-    private  String name;
-//    分类类型
+public class Category {
+    /**
+     * 分类表ID
+     */
+    private Integer id;
+    /**
+     * 分类表父编号
+     */
+    private Integer pid;
+    /**
+     * 分类名称
+     */
+    private String name;
+    /**
+     * 分类表类型
+     */
     private CategoryType categoryType;
-//    图片url地址
-    private  String image;
-//    创建时间
-    private  DateTime create_time;
-//    更新时间
-    private  DateTime update_time;
-//    排序0~255
-    private  String sort;
-//    get/set方法
+    /**
+     * 分类表图片
+     */
+    private String image;
+    /**
+     * 分类添加时间
+     */
+    private DateTime createTime;
+    /**
+     * 分类更新时间
+     */
+    private DateTime update_time;
+    /**
+     * 分类表排序
+     */
+    private Integer sort;
 
+    @Column(name = "id")
+    @Basic
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    @Column(name = "pid")
+    @Basic
     public Integer getPid() {
         return pid;
     }
@@ -34,6 +65,8 @@ public class Category implements EntityClass<Integer> ,OperableData {
         this.pid = pid;
     }
 
+    @Column(name = "name")
+    @Basic
     public String getName() {
         return name;
     }
@@ -42,14 +75,18 @@ public class Category implements EntityClass<Integer> ,OperableData {
         this.name = name;
     }
 
-    public CategoryType getCategoryType() {
+    @Column(name = "type")
+    @Enumerated(EnumType.STRING)
+    public CategoryType getType() {
         return categoryType;
     }
 
-    public void setCategoryType(CategoryType categoryType) {
+    public void setType(CategoryType categoryType) {
         this.categoryType = categoryType;
     }
 
+    @Column(name = "image")
+    @Basic
     public String getImage() {
         return image;
     }
@@ -58,14 +95,18 @@ public class Category implements EntityClass<Integer> ,OperableData {
         this.image = image;
     }
 
-    public DateTime getCreate_time() {
-        return create_time;
+    @Column(name = "register_time")
+    @Type(type = "org.jadira.usertype.dateandtime.joda.PersistentDateTime")
+    public DateTime getCreateTime() {
+        return createTime;
     }
 
-    public void setCreate_time(DateTime create_time) {
-        this.create_time = create_time;
+    public void setCreateTime(DateTime createTime) {
+        this.createTime = createTime;
     }
 
+    @Column(name = "register_time")
+    @Type(type = "org.jadira.usertype.dateandtime.joda.PersistentDateTime")
     public DateTime getUpdate_time() {
         return update_time;
     }
@@ -74,66 +115,13 @@ public class Category implements EntityClass<Integer> ,OperableData {
         this.update_time = update_time;
     }
 
-    public String getSort() {
+    @Column(name = "sort")
+    @Basic
+    public Integer getSort() {
         return sort;
     }
 
-    public void setSort(String sort) {
+    public void setSort(Integer sort) {
         this.sort = sort;
-    }
-//    构造函数
-
-    public Category(Integer id, Integer pid, String name, CategoryType categoryType, String image, DateTime create_time, DateTime update_time, String sort) {
-        this.id = id;
-        this.pid = pid;
-        this.name = name;
-        this.categoryType = categoryType;
-        this.image = image;
-        this.create_time = create_time;
-        this.update_time = update_time;
-        this.sort = sort;
-    }
-
-    public Category() {
-    }
-
-    @Override
-    public Integer getId() {
-        return null;
-    }
-
-    @Override
-    public void setId(Integer id) {
-
-    }
-
-    @Override
-    public void setCreateTime(DateTime createTime) {
-
-    }
-
-    @Override
-    public DateTime getCreateTime() {
-        return null;
-    }
-
-    @Override
-    public void setUpdateTime(DateTime updateTime) {
-
-    }
-
-    @Override
-    public DateTime getUpdateTime() {
-        return null;
-    }
-
-    @Override
-    public void setOperatorId(Integer operatorId) {
-
-    }
-
-    @Override
-    public Integer getOperatorId() {
-        return null;
     }
 }
