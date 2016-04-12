@@ -1,7 +1,7 @@
 package ordercenter.models;
 
+import ordercenter.constants.UserType;
 import org.hibernate.annotations.Type;
-import org.hibernate.usertype.UserType;
 import org.joda.time.DateTime;
 
 import javax.persistence.Basic;
