@@ -3,7 +3,14 @@ package ordercenter.models;
 import org.hibernate.annotations.Type;
 import org.joda.time.DateTime;
 
+<<<<<<< HEAD
 import javax.persistence.*;
+=======
+import javax.persistence.Basic;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Table;
+>>>>>>> 6614ecdd6d2d4fa2387ab98caed4cf7faf1ce6a1
 
 /**
  * Created by llz on 2016/4/12.
