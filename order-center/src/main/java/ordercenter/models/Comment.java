@@ -1,9 +1,9 @@
 package ordercenter.models;
 
+import org.hibernate.annotations.Type;
 import org.joda.time.DateTime;
 
-import javax.persistence.Entity;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 /**
  * Created by llz on 2016/4/12.
@@ -17,13 +17,12 @@ public class Comment {
     private Integer id;
     /**
      * 对应文章
-
      */
-    private Integer article_id;
+    private Integer articleId;
     /**
      * 对应用户编号
      */
-    private Integer user_id;
+    private Integer userId;
     /**
      * 内容
      */
@@ -33,6 +32,8 @@ public class Comment {
      */
     private DateTime createTime;
 
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Id
     public Integer getId() {
         return id;
     }
@@ -41,22 +42,28 @@ public class Comment {
         this.id = id;
     }
 
-    public Integer getArticle_id() {
-        return article_id;
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "article_id", insertable = false, updatable = false)
+    public Integer getArticleId() {
+        return articleId;
     }
 
-    public void setArticle_id(Integer article_id) {
-        this.article_id = article_id;
+    public void setArticleId(Integer articleId) {
+        this.articleId = articleId;
     }
 
-    public Integer getUser_id() {
-        return user_id;
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_id", insertable = false, updatable = false)
+    public Integer getUserId() {
+        return userId;
     }
 
-    public void setUser_id(Integer user_id) {
-        this.user_id = user_id;
+    public void setUser_id(Integer userId) {
+        this.userId = userId;
     }
 
+    @Column(name = "content")
+    @Basic
     public String getContent() {
         return content;
     }
@@ -65,6 +72,8 @@ public class Comment {
         this.content = content;
     }
 
+    @Column(name = "create_time")
+    @Type(type="org.jadira.usertype.dateandtime.joda.PersistentDateTime")
     public DateTime getCreateTime() {
         return createTime;
     }

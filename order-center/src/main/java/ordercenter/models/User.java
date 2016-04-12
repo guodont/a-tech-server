@@ -65,8 +65,8 @@ public class User {
      */
     private DateTime registerTime;
 
-    @Column(name = "id")
-    @Basic
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Id
     public Integer getId() {
         return id;
     }

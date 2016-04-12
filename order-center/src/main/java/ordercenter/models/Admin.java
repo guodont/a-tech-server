@@ -3,10 +3,7 @@ package ordercenter.models;
 import org.hibernate.annotations.Type;
 import org.joda.time.DateTime;
 
-import javax.persistence.Basic;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 /**
  * Created by llz on 2016/4/12.
@@ -47,8 +44,8 @@ public class Admin {
      */
     private String lastIp;
 
-    @Column(name = "id")
-    @Basic
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Id
     public int getId() {
         return id;
     }

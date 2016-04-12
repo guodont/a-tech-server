@@ -45,8 +45,8 @@ public class Category {
      */
     private Integer sort;
 
-    @Column(name = "id")
-    @Basic
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Id
     public Integer getId() {
         return id;
     }
