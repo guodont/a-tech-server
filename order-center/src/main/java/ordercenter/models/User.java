@@ -3,14 +3,14 @@ package ordercenter.models;
 import ordercenter.constants.UserType;
 import org.hibernate.annotations.Type;
 import org.joda.time.DateTime;
-import javax.persistence.Basic;
-import javax.persistence.Column;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
+
+import javax.persistence.*;
 
 /**
  * Created by llz on 2016/4/12.
  */
+@Table(name = "user")
+@Entity
 public class User {
     /**
      * 用户ID
