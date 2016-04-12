@@ -1,13 +1,11 @@
-## awesome-play
+## a-tech-server 农科项目server端
 
 ### Introduction
-This project is an use case for [Play Framework 2](https://github.com/playframework/playframework) in real world,
-Play Framework is effective, mature and easy to use. But it was written by Scala, and looks difficult to those who only knew Java.
-If you are from Java world and want adopt Play Framework in your project, you can use this project as scaffold.
+This project is an use case for [Play Framework 2](https://github.com/playframework/playframework) in real world.
+农科项目server端
 
 ### Architecture
 Play 2.4.2 + Spring 4.1.6 + Hibernate 4.3.6
-![](images/awesome-play.png?raw=true)
 
 ### Prerequisites
 1.JDK8+  
@@ -57,13 +55,6 @@ sbt
 project admin
 run
 ```
-If everything goes well, you could see this:
-![](images/awesome-play2.png?raw=true)
 
-Open http://localhost:9000/ in your browser, you can see this page:
-![](images/awesome-play3.png?raw=true)
+Open http://localhost:9000/ in your browser.
 
-Enjoy!
-
-
-Ps. I have some [Chinese blogs](http://skaka.me/blog/2015/07/27/play1) to introduce Play :)
