@@ -5,10 +5,14 @@ import org.joda.time.DateTime;
 
 import javax.persistence.Basic;
 import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Table;
 
 /**
  * Created by llz on 2016/4/12.
  */
+@Table(name = "admin")
+@Entity
 public class Admin {
     /**
      * 管理员ID
