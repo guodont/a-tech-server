@@ -9,7 +9,6 @@ import org.hibernate.annotations.Type;
 import org.joda.time.DateTime;
 import play.data.validation.Constraints.MinLength;
 import play.data.validation.Constraints.Required;
-
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
