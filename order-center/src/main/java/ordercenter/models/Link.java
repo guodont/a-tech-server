@@ -1,0 +1,65 @@
+package ordercenter.models;
+
+import org.hibernate.annotations.Type;
+import org.joda.time.DateTime;
+
+import javax.persistence.*;
+
+/**
+ * Created by j on 2016/4/13.
+ */
+public class Link {
+    private Integer id;
+    private String name;
+    private String url;
+    private DateTime updateTime;
+    private DateTime createTime;
+
+
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Id
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+    @Column(name = "name")
+    @Basic
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+    @Column(name = "url")
+    @Basic
+    public String getUrl() {
+        return url;
+    }
+
+    public void setUrl(String url) {
+        this.url = url;
+    }
+    @Column(name = "update_time")
+    @Type(type="org.jadira.usertype.dateandtime.joda.PersistentDateTime")
+    public DateTime getUpdateTime() {
+        return updateTime;
+    }
+
+    public void setUpdateTime(DateTime updateTime) {
+        this.updateTime = updateTime;
+    }
+    @Column(name = "create")
+    @Type(type="org.jadira.usertype.dateandtime.joda.PersistentDateTime")
+    public DateTime getCreateTime() {
+        return createTime;
+    }
+
+    public void setCreateTime(DateTime createTime) {
+        this.createTime = createTime;
+    }
+}
