@@ -13,34 +13,55 @@ import javax.persistence.*;
  * Created by lzadmin on 2016/4/12 0012.
  * trade表实体类
  */
+@Table(name = "trade")
+@Entity
 public class Trade implements EntityClass<Integer> {
 
     private Integer id;
-    //    交易标题
+    /**
+     * 交易标题
+     */
     private String title;
-    //    交易描述
+    /**
+     * 交易描述
+     */
     private String description;
-    //    用户id
-    private Integer user_id;
-
+    /**
+     * 用户id
+     */
+    private Integer userId;
+    /**
+     * 点击数
+     */
     private Integer click;
-
+    /**
+     * 收藏数
+     */
     private Integer like;
-    //    发布时间
-    private DateTime create_time;
-
-    private DateTime update_time;
-    //    结束时间
-    private DateTime end_time;
-    //    交易类型
+    /**
+     * 发布时间
+     */
+    private DateTime createTime;
+    /**
+     * 交易标题
+     */
+    private DateTime updateTime;
+    /**
+     * 结束时间
+     */
+    private DateTime endTime;
+    /**
+     * 交易类型
+     */
     private TradeType tradeType;
-    //分类id
-    private Integer category_id;
-    //    交易状态
+    /**
+     * 分类id
+     */
+    private Integer categoryId;
+    /**
+     * 交易状态
+     */
     private TradeState tradeState;
-
-//    get/set方法
-
 
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Id
@@ -52,7 +73,8 @@ public class Trade implements EntityClass<Integer> {
     public void setId(Integer id) {
         this.id = id;
     }
-    @Column(name="title")
+
+    @Column(name = "title")
     @Basic
     public String getTitle() {
         return title;
@@ -61,7 +83,8 @@ public class Trade implements EntityClass<Integer> {
     public void setTitle(String title) {
         this.title = title;
     }
-    @Column(name="description")
+
+    @Column(name = "description")
     @Basic
     public String getDescription() {
         return description;
@@ -71,14 +94,15 @@ public class Trade implements EntityClass<Integer> {
         this.description = description;
     }
 
-    public Integer getUser_id() {
-        return user_id;
+    public Integer getUserId() {
+        return userId;
     }
 
-    public void setUser_id(Integer user_id) {
-        this.user_id = user_id;
+    public void setUserId(Integer user_id) {
+        this.userId = userId;
     }
-    @Column(name="click")
+
+    @Column(name = "click")
     @Basic
     public Integer getClick() {
         return click;
@@ -87,7 +111,8 @@ public class Trade implements EntityClass<Integer> {
     public void setClick(Integer click) {
         this.click = click;
     }
-    @Column(name="like")
+
+    @Column(name = "like")
     @Basic
     public Integer getLike() {
         return like;
@@ -96,34 +121,38 @@ public class Trade implements EntityClass<Integer> {
     public void setLike(Integer like) {
         this.like = like;
     }
+
     @Column(name = "create_time")
-    @Type(type="org.jadira.usertype.dateandtime.joda.PersistentDateTime")
-    public DateTime getCreate_time() {
-        return create_time;
+    @Type(type = "org.jadira.usertype.dateandtime.joda.PersistentDateTime")
+    public DateTime getCreateIime() {
+        return createTime;
     }
 
-    public void setCreate_time(DateTime create_time) {
-        this.create_time = create_time;
+    public void setCreateIime(DateTime createTime) {
+        this.createTime = createTime;
     }
+
     @Column(name = "update_time")
-    @Type(type="org.jadira.usertype.dateandtime.joda.PersistentDateTime")
-    public DateTime getUpdate_time() {
-        return update_time;
+    @Type(type = "org.jadira.usertype.dateandtime.joda.PersistentDateTime")
+    public DateTime getUpdateIime() {
+        return updateTime;
     }
 
-    public void setUpdate_time(DateTime update_time) {
-        this.update_time = update_time;
+    public void setUpdateIime(DateTime updateTime) {
+        this.updateTime = updateTime;
     }
+
     @Column(name = "end_time")
-    @Type(type="org.jadira.usertype.dateandtime.joda.PersistentDateTime")
-    public DateTime getEnd_time() {
-        return end_time;
+    @Type(type = "org.jadira.usertype.dateandtime.joda.PersistentDateTime")
+    public DateTime getEndIime() {
+        return endTime;
     }
 
-    public void setEnd_time(DateTime end_time) {
-        this.end_time = end_time;
+    public void setEndIime(DateTime endTime) {
+        this.endTime = endTime;
     }
-    @Column(name="tradeType")
+
+    @Column(name = "tradeType")
     @Enumerated(EnumType.STRING)
     public TradeType getTradeType() {
         return tradeType;
@@ -133,14 +162,17 @@ public class Trade implements EntityClass<Integer> {
         this.tradeType = tradeType;
     }
 
-    public Integer getCategory_id() {
-        return category_id;
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "category_id", insertable = false, updatable = false)
+    public Integer getCategoryId() {
+        return categoryId;
     }
 
-    public void setCategory_id(Integer category_id) {
-        this.category_id = category_id;
+    public void setCategoryId(Integer categoryId) {
+        this.categoryId = categoryId;
     }
-    @Column(name="tradeState")
+
+    @Column(name = "tradeState")
     @Enumerated(EnumType.STRING)
     public TradeState getTradeState() {
         return tradeState;
