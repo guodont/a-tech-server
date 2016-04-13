@@ -1,20 +1,19 @@
-package ordercenter.services;
+package ordercenter.constants;
 
 import common.models.utils.ViewEnum;
 
 /**
- * 分类类型明细
- * Created by llz on 2016/4/12.
+ * Created by llz on 2016/4/13.
+ * 广告位置详细描述
  */
-public enum CategoryType implements ViewEnum {
-
-    ARTICLE("普通用户"),
-    EXPERT("专家"),
-    QUESTION("问题");
+public enum Position implements ViewEnum {
+    FLOAT("幻灯片"),
+    AMONG("顶部"),
+    TOP("模块中间");
 
     public String value;
 
-    CategoryType(String value) {
+    Position(String value) {
         this.value = value;
     }
 

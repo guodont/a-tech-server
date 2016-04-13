@@ -12,6 +12,8 @@ import javax.persistence.*;
  * Created by lzadmin on 2016/4/12 0012.
  * album表实体类
  */
+@Table(name = "album")
+@Entity
 public class Album implements EntityClass<Integer> {
     //    专家相册表
     private Integer id;
