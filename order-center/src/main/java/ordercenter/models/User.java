@@ -1,5 +1,6 @@
 package ordercenter.models;
 
+import common.models.utils.EntityClass;
 import ordercenter.constants.UserType;
 import org.hibernate.annotations.Type;
 import org.joda.time.DateTime;
@@ -11,7 +12,7 @@ import javax.persistence.*;
  */
 @Table(name = "user")
 @Entity
-public class User {
+public class User implements EntityClass<Integer> {
     /**
      * 用户ID
      */
