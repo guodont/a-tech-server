@@ -4,7 +4,7 @@ Navicat MySQL Data Transfer
 Source Server         : llz
 Source Server Version : 50045
 Source Host           : localhost:3306
-Source Database       : atch
+Source Database       : atech
 
 Target Server Type    : MYSQL
 Target Server Version : 50045
@@ -67,6 +67,8 @@ CREATE TABLE `admin` (
   PRIMARY KEY  (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+INSERT INTO `atech`.`admin` (`id`, `name`, `email`, `password`, `phone`, `create_time`, `last_login_time`, `last_ip`) VALUES ('1', 'admin', 'admin@163.com', 'admin', '18404968725', '2016-04-14 20:22:51', '2016-04-14 20:22:51', '127.0.0.1');
+
 -- ----------------------------
 -- Records of admin
 -- ----------------------------
@@ -76,8 +78,8 @@ CREATE TABLE `admin` (
 -- ----------------------------
 DROP TABLE IF EXISTS `user`;
 CREATE TABLE `user` (
-  `id` int(11) NOT NULL default '0',
-  `type` tinyint(20) default NULL COMMENT '用户类型PUBLIC:普通用户EXPERT:专家用户',
+  `id` int(11) NOT NULL auto_increment,
+  `type` varchar(10) default NULL COMMENT '用户类型PUBLIC:普通用户EXPERT:专家用户',
   `address` varchar(80) default NULL,
   `real_name` varchar(25) default NULL COMMENT '真实姓名',
   `password` varchar(45) default NULL,
@@ -109,7 +111,7 @@ CREATE TABLE `advertisement` (
   `create_time` datetime default NULL,
   `update_time` datetime default NULL,
   `click` int(7) default NULL COMMENT '点击次数',
-  `position` varchar(40) default NULL COMMENT '广告类型（FLOAT:幻灯片、TOP:顶部、AMONG:模\r\r\n\r\r\n块中间）',
+  `position` varchar(10) default NULL COMMENT '广告位置（FLOAT:幻灯片、TOP:顶部、AMONG:模块中间）',
   PRIMARY KEY  (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -128,9 +130,7 @@ CREATE TABLE `album` (
   `user_id` int(11) default NULL COMMENT '用户（专家）id',
   `create_time` datetime default NULL,
   `description` varchar(255) default NULL COMMENT '描述',
-  PRIMARY KEY  (`id`),
-  KEY `abuser` (`user_id`),
-  CONSTRAINT `abuser` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`) ON DELETE NO ACTION
+  PRIMARY KEY  (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------
@@ -146,23 +146,18 @@ CREATE TABLE `article` (
   `title` varchar(45) default NULL,
   `content` text COMMENT '内容',
   `key` varchar(45) default NULL COMMENT '关键字',
-  `categoery_id` int(11) default NULL COMMENT '文章类型id',
-  `admin_id` int(11) default NULL COMMENT '管理员id\r\n',
+  `categoery_id` int(11) default NULL COMMENT '文章分类id',
+  `admin_id` int(11) default NULL COMMENT '管理员id',
   `create_time` datetime default NULL COMMENT '发布时间',
   `update_time` datetime default NULL COMMENT '最近一次修改时间',
   `sort` tinyint(3) default NULL COMMENT '排序',
   `user_id` int(11) default NULL COMMENT '专家id',
   `click` int(11) default NULL COMMENT '点击次数',
   `image` varchar(45) default NULL COMMENT '图片路径',
-  `type` varchar(40) default NULL COMMENT '文章类型-WEB:网站ARTICLE：文\r\r\n章ACCOMPLISH\r\r\n：成果',
-  `state` varchar(40) default NULL COMMENT '提交状态NOT_AUDITED：未审核WAIT_AUDITED：待\r\r\n审\r\r\n核AUDITED：审核成功FAILED_AUDITED：未通过',
-  PRIMARY KEY  (`id`),
-  KEY `acateid` (`categoery_id`),
-  KEY `aadmin` (`admin_id`),
-  KEY `auser` (`user_id`),
-  CONSTRAINT `aadmin` FOREIGN KEY (`admin_id`) REFERENCES `admin` (`id`) ON DELETE NO ACTION,
-  CONSTRAINT `acatagory` FOREIGN KEY (`categoery_id`) REFERENCES `category` (`id`) ON DELETE NO ACTION,
-  CONSTRAINT `auser` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`) ON DELETE NO ACTION
+  `recommend` varchar(20) default 'FALSE' COMMENT '是否推荐: TRUE 推荐 FALSE 不推荐',
+  `type` varchar(20) default 'WEB' COMMENT '文章类型- WEB:网站 ARTICLE：专家文章 ACCOMPLISH：成果',
+  `state` varchar(20) default 'NOT_AUDITED' COMMENT '提交状态NOT_AUDITED：未审核WAIT_AUDITED：待审核AUDITED：审核成功FAILED_AUDITED：未通过',
+  PRIMARY KEY  (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------
@@ -175,13 +170,13 @@ CREATE TABLE `article` (
 DROP TABLE IF EXISTS `category`;
 CREATE TABLE `category` (
   `id` int(11) NOT NULL auto_increment,
-  `pid` int(11) default NULL COMMENT '父编号\r\n0：一级分类，pid与id相\r\r\n关\r\r\n联',
+  `pid` int(11) default NULL COMMENT '父编号0：一级分类，pid与id相关联',
   `name` varchar(25) default NULL,
-  `type` varchar(40) default NULL COMMENT '分类类型ARTICLE:文章EXPERT:专家QUESTION\r\r\n:\r\r\n问题',
+  `type` varchar(40) default NULL COMMENT '分类类型ARTICLE:文章EXPERT:专家QUESTION:问题',
   `image` varchar(45) default NULL,
   `create_time` datetime default NULL,
   `update_time` datetime default NULL,
-  `sort` tinyint(3) default NULL COMMENT '排序\r\n0-255',
+  `sort` tinyint(3) default NULL COMMENT '排序0-255',
   PRIMARY KEY  (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -199,11 +194,7 @@ CREATE TABLE `answer` (
   `content` text,
   `create_time` datetime default NULL,
   `expert_id` int(11) default NULL,
-  PRIMARY KEY  (`id`),
-  KEY `aquestion` (`question_id`),
-  KEY `aexpert` (`expert_id`),
-  CONSTRAINT `aexpert` FOREIGN KEY (`expert_id`) REFERENCES `expert` (`id`) ON DELETE NO ACTION,
-  CONSTRAINT `aquestion` FOREIGN KEY (`question_id`) REFERENCES `question` (`id`) ON DELETE NO ACTION
+  PRIMARY KEY  (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------
@@ -217,14 +208,10 @@ DROP TABLE IF EXISTS `comment`;
 CREATE TABLE `comment` (
   `id` int(11) NOT NULL auto_increment,
   `article_id` int(11) default NULL COMMENT '对应的文章',
-  `user_id` int(11) default NULL COMMENT '对应用户编号\r\nuser_avatar  \r\r\n \r\r\n user_name',
+  `user_id` int(11) default NULL COMMENT '对应用户编号',
   `content` varchar(255) default NULL,
   `create_time` datetime default NULL COMMENT '越早发布越靠下',
-  PRIMARY KEY  (`id`),
-  KEY `carticle` (`article_id`),
-  KEY `cuser` (`user_id`),
-  CONSTRAINT `carticle` FOREIGN KEY (`article_id`) REFERENCES `article` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  CONSTRAINT `cuser` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
+  PRIMARY KEY  (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------
@@ -244,11 +231,7 @@ CREATE TABLE `expert` (
   `instruction` text COMMENT '简介',
   `service` varchar(45) default NULL COMMENT '服务项目',
   `company` varchar(45) default NULL COMMENT '所在单位',
-  PRIMARY KEY  (`id`),
-  KEY `ecategory` (`category_id`),
-  KEY `euser` (`user_id`),
-  CONSTRAINT `euser` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`) ON DELETE NO ACTION,
-  CONSTRAINT `ecategory` FOREIGN KEY (`category_id`) REFERENCES `category` (`id`) ON DELETE NO ACTION
+  PRIMARY KEY  (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------
@@ -265,9 +248,7 @@ CREATE TABLE `favorite` (
   `create_time` datetime default NULL COMMENT '收藏时间',
   `type` varchar(20) default NULL COMMENT '收藏类型（QUESTION:问题、TRADE:交易）',
   `user_id` int(11) default NULL COMMENT '用户id',
-  PRIMARY KEY  (`id`),
-  KEY `fuser` USING BTREE (`user_id`),
-  CONSTRAINT `fuser` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`) ON DELETE NO ACTION
+  PRIMARY KEY  (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------
@@ -299,21 +280,16 @@ CREATE TABLE `question` (
   `id` int(11) NOT NULL auto_increment,
   `category_id` int(40) NOT NULL,
   `title` varchar(45) NOT NULL COMMENT '主题',
-  `state` varchar(40) NOT NULL COMMENT '状态NOT_AUDITED:未审核AUDITED:已审核REPLY:已经回复',
+  `audit_state` varchar(20) NOT NULL COMMENT '审核状态NOT_AUDITED:未审核AUDITED:已审核REPLY:已经回复',
+  `resolve_state` varchar(20) default NULL COMMENT '解决状态（RESOLVED:已解决 WAIT_RESOLVE:待解决）',
   `content` text COMMENT '具体内容',
   `create_time` datetime default NULL COMMENT '咨询时间',
   `click` int(7) default NULL COMMENT '点击数',
   `like` int(7) default NULL COMMENT '点赞数（收藏）',
-  `top` int(7) default NULL COMMENT '催一下数量(只记录数量，不记录具体\r\r\n用\r\r\n户)',
+  `top` int(7) default NULL COMMENT '催一下数量(只记录数量，不记录具体用户)',
   `expert_id` int(11) default NULL COMMENT '制定专家回答',
   `user_id` int(11) default NULL COMMENT '提问者(name)',
-  PRIMARY KEY  (`id`),
-  KEY `qcategory` (`category_id`),
-  KEY `qexpert` (`expert_id`),
-  KEY `quser` (`user_id`),
-  CONSTRAINT `qcategory` FOREIGN KEY (`category_id`) REFERENCES `category` (`id`) ON DELETE NO ACTION,
-  CONSTRAINT `qexpert` FOREIGN KEY (`expert_id`) REFERENCES `expert` (`id`) ON DELETE NO ACTION,
-  CONSTRAINT `quser` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`) ON DELETE NO ACTION
+  PRIMARY KEY  (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------
@@ -334,14 +310,10 @@ CREATE TABLE `trade` (
   `create_time` datetime default NULL COMMENT '发布时间',
   `update_time` datetime default NULL,
   `end_time` datetime default NULL COMMENT '结束时间',
-  `state` varchar(40) default NULL COMMENT '状态（WAIT_AUDITED:待审核AUDITED:已通过FAILED:\r\r\n未\r\r\n通过）',
+  `state` varchar(20) default NULL COMMENT '审核状态（WAIT_AUDITED:待审核AUDITED:已通过FAILED:未通过）',
   `category_id` int(11) default NULL COMMENT '分类id',
-  `type` varchar(20) default NULL COMMENT '交易类型（SUPPLY:供应DEMANF:需求）',
-  PRIMARY KEY  (`id`),
-  KEY `tuser` (`user_id`),
-  KEY `tcategory` (`category_id`),
-  CONSTRAINT `tcategory` FOREIGN KEY (`category_id`) REFERENCES `category` (`id`) ON DELETE NO ACTION,
-  CONSTRAINT `tuser` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`) ON DELETE NO ACTION
+  `type` varchar(20) default NULL COMMENT '交易类型（SUPPLY:供应 DEMAND:需求）',
+  PRIMARY KEY  (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------
@@ -356,11 +328,9 @@ CREATE TABLE `trend` (
   `id` int(11) NOT NULL auto_increment,
   `user_id` int(11) default NULL,
   `content` varchar(255) default NULL COMMENT '动态内容',
-  `image` varchar(45) default NULL COMMENT '配图id(多个用“，”号隔\r\r\n开)',
+  `image` varchar(45) default NULL COMMENT '配图id(多个用“，”号隔开)',
   `create_time` datetime default NULL,
-  PRIMARY KEY  (`id`),
-  KEY `truser` (`user_id`),
-  CONSTRAINT `truser` FOREIGN KEY (`user_id`) REFERENCES `trend` (`id`) ON DELETE NO ACTION
+  PRIMARY KEY  (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------
@@ -381,11 +351,7 @@ CREATE TABLE `video` (
   `admin_id` int(11) default NULL COMMENT '管理员id',
   `category_id` int(11) default NULL COMMENT '分类id',
   `click` int(11) default NULL COMMENT '点击次数',
-  PRIMARY KEY  (`id`),
-  KEY `vadmin` (`admin_id`),
-  KEY `vcategory` (`category_id`),
-  CONSTRAINT `vadmin` FOREIGN KEY (`admin_id`) REFERENCES `admin` (`id`) ON DELETE NO ACTION,
-  CONSTRAINT `vcategory` FOREIGN KEY (`category_id`) REFERENCES `category` (`id`) ON DELETE NO ACTION
+  PRIMARY KEY  (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------
