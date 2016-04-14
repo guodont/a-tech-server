@@ -27,9 +27,9 @@ public class Trade implements EntityClass<Integer> {
      */
     private String description;
     /**
-     * 用户id
+     * 所属用户
      */
-    private Integer userId;
+    private User user;
     /**
      * 点击数
      */
@@ -55,9 +55,9 @@ public class Trade implements EntityClass<Integer> {
      */
     private TradeType tradeType;
     /**
-     * 分类id
+     * 所属分类
      */
-    private Integer categoryId;
+    private Category category;
     /**
      * 交易状态
      */
@@ -94,12 +94,14 @@ public class Trade implements EntityClass<Integer> {
         this.description = description;
     }
 
-    public Integer getUserId() {
-        return userId;
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "user_id", insertable = false, updatable = false)
+    public User getUser() {
+        return user;
     }
 
-    public void setUserId(Integer user_id) {
-        this.userId = userId;
+    public void setUser(User user) {
+        this.user = user;
     }
 
     @Column(name = "click")
@@ -124,35 +126,35 @@ public class Trade implements EntityClass<Integer> {
 
     @Column(name = "create_time")
     @Type(type = "org.jadira.usertype.dateandtime.joda.PersistentDateTime")
-    public DateTime getCreateIime() {
+    public DateTime getCreateTime() {
         return createTime;
     }
 
-    public void setCreateIime(DateTime createTime) {
+    public void setCreateTime(DateTime createTime) {
         this.createTime = createTime;
     }
 
     @Column(name = "update_time")
     @Type(type = "org.jadira.usertype.dateandtime.joda.PersistentDateTime")
-    public DateTime getUpdateIime() {
+    public DateTime getUpdateTime() {
         return updateTime;
     }
 
-    public void setUpdateIime(DateTime updateTime) {
+    public void setUpdateTime(DateTime updateTime) {
         this.updateTime = updateTime;
     }
 
     @Column(name = "end_time")
     @Type(type = "org.jadira.usertype.dateandtime.joda.PersistentDateTime")
-    public DateTime getEndIime() {
+    public DateTime getEndTime() {
         return endTime;
     }
 
-    public void setEndIime(DateTime endTime) {
+    public void setEndTime(DateTime endTime) {
         this.endTime = endTime;
     }
 
-    @Column(name = "tradeType")
+    @Column(name = "trade_type")
     @Enumerated(EnumType.STRING)
     public TradeType getTradeType() {
         return tradeType;
@@ -162,17 +164,17 @@ public class Trade implements EntityClass<Integer> {
         this.tradeType = tradeType;
     }
 
-    @OneToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "category_id", insertable = false, updatable = false)
-    public Integer getCategoryId() {
-        return categoryId;
+    public Category getCategory() {
+        return category;
     }
 
-    public void setCategoryId(Integer categoryId) {
-        this.categoryId = categoryId;
+    public void setCategory(Category category) {
+        this.category = category;
     }
 
-    @Column(name = "tradeState")
+    @Column(name = "trade_state")
     @Enumerated(EnumType.STRING)
     public TradeState getTradeState() {
         return tradeState;

@@ -1,5 +1,6 @@
 package ordercenter.models;
 
+import common.models.utils.EntityClass;
 import ordercenter.constants.CategoryType;
 import org.hibernate.annotations.Type;
 import org.joda.time.DateTime;
@@ -11,7 +12,7 @@ import javax.persistence.*;
  */
 @Table(name = "category")
 @Entity
-public class Category {
+public class Category implements EntityClass<Integer> {
     /**
      * 分类表ID
      */
@@ -39,7 +40,7 @@ public class Category {
     /**
      * 分类更新时间
      */
-    private DateTime update_time;
+    private DateTime updateTime;
     /**
      * 分类表排序
      */
@@ -95,7 +96,7 @@ public class Category {
         this.image = image;
     }
 
-    @Column(name = "register_time")
+    @Column(name = "create_time")
     @Type(type = "org.jadira.usertype.dateandtime.joda.PersistentDateTime")
     public DateTime getCreateTime() {
         return createTime;
@@ -105,14 +106,14 @@ public class Category {
         this.createTime = createTime;
     }
 
-    @Column(name = "register_time")
+    @Column(name = "update_time")
     @Type(type = "org.jadira.usertype.dateandtime.joda.PersistentDateTime")
-    public DateTime getUpdate_time() {
-        return update_time;
+    public DateTime getUpdateTime() {
+        return updateTime;
     }
 
-    public void setUpdate_time(DateTime update_time) {
-        this.update_time = update_time;
+    public void setUpdateTime(DateTime updateTime) {
+        this.updateTime = updateTime;
     }
 
     @Column(name = "sort")

@@ -3,10 +3,11 @@ package ordercenter.constants;
 import common.models.utils.ViewEnum;
 
 /**
- * Created by lzadmin on 2016/4/12 0012.
- * trade表中state属性的枚举类
+ * @author guodont
+ *
+ * 问题状态
  */
-public enum  TradeState implements ViewEnum{
+public enum QuestionAuditState implements ViewEnum{
 
     WAIT_AUDITED("待审核"),
     FAILED("未通过"),
@@ -14,7 +15,7 @@ public enum  TradeState implements ViewEnum{
 
     private  String value;
 
-    TradeState(String value) {
+    QuestionAuditState(String value) {
         this.value = value;
     }
 

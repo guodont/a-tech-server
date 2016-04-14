@@ -1,5 +1,6 @@
 package ordercenter.models;
 
+import common.models.utils.EntityClass;
 import org.hibernate.annotations.Type;
 import org.joda.time.DateTime;
 
@@ -8,13 +9,15 @@ import javax.persistence.*;
 /**
  * Created by j on 2016/4/12.
  */
-public class Answer {
+@Table(name = "answer")
+@Entity
+public class Answer implements EntityClass<Integer> {
     /**
      * id
      */
     private Integer id;
     /**
-     * 问题id
+     * 所属问题
      */
     private Question question;
     /**
@@ -26,9 +29,9 @@ public class Answer {
      */
     private DateTime createTime;
     /**
-     * 专家id
+     * 回答的专家
      */
-    private Expert expertId;
+    private Expert expert;
 
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Id
@@ -39,7 +42,11 @@ public class Answer {
         this.id = id;
     }
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    /**
+     * 回答和问题是多对一的关系
+     * @return
+     */
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "question_id", insertable = false, updatable = false)
     public Question getQuestion() {
         return question;
@@ -67,14 +74,17 @@ public class Answer {
         this.createTime = createTime;
     }
 
-    @OneToOne(cascade=CascadeType.ALL)
+    /**
+     * 回答和专家是多对一的关系
+     * @return
+     */
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name="expert_id")
-
-    public Expert getExpertId() {
-        return expertId;
+    public Expert getExpert() {
+        return expert;
     }
 
-    public void setExpertId(Expert expertId) {
-        this.expertId = expertId;
+    public void setExpert(Expert expert) {
+        this.expert = expert;
     }
 }

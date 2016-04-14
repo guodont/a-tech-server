@@ -15,21 +15,30 @@ import javax.persistence.*;
 @Table(name = "album")
 @Entity
 public class Album implements EntityClass<Integer> {
-    //    专家相册表
+    /**
+     * 专家相册表
+     */
     private Integer id;
-    //    相册名
+    /**
+     * 相册名
+     */
     private String name;
-    //    照片路径
+    /**
+     * 照片路径
+     */
     private String path;
-    //    用户（专家）id
-    private Integer user_id;
-
-    private DateTime create_time;
-    //    照片描述
+    /**
+     * 所属用户(专家)
+     */
+    private User user;
+    /**
+     * 创建时间
+     */
+    private DateTime createTime;
+    /**
+     * 照片描述
+     */
     private String description;
-
-//    get、set方法
-
 
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Id
@@ -37,11 +46,11 @@ public class Album implements EntityClass<Integer> {
         return id;
     }
 
-
     public void setId(Integer id) {
         this.id = id;
     }
-    @Column(name="name")
+
+    @Column(name = "name")
     @Basic
     public String getName() {
         return name;
@@ -50,7 +59,8 @@ public class Album implements EntityClass<Integer> {
     public void setName(String name) {
         this.name = name;
     }
-    @Column(name="path")
+
+    @Column(name = "path")
     @Basic
     public String getPath() {
         return path;
@@ -60,23 +70,27 @@ public class Album implements EntityClass<Integer> {
         this.path = path;
     }
 
-    public Integer getUser_id() {
-        return user_id;
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "user_id", insertable = false, updatable = false)
+    public User getUser() {
+        return user;
     }
 
-    public void setUser_id(Integer user_id) {
-        this.user_id = user_id;
+    public void setUser(User user) {
+        this.user = user;
     }
+
     @Column(name = "create_time")
-    @Type(type="org.jadira.usertype.dateandtime.joda.PersistentDateTime")
-    public DateTime getCreate_time() {
-        return create_time;
+    @Type(type = "org.jadira.usertype.dateandtime.joda.PersistentDateTime")
+    public DateTime getCreateTime() {
+        return createTime;
     }
 
-    public void setCreate_time(DateTime create_time) {
-        this.create_time = create_time;
+    public void setCreateTime(DateTime createTime) {
+        this.createTime = createTime;
     }
-    @Column(name="description")
+
+    @Column(name = "description")
     @Basic
     public String getDescription() {
         return description;

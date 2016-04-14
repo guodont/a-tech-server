@@ -9,21 +9,33 @@ import javax.persistence.*;
 
 /**
  * Created by lzadmin on 2016/4/12 0012.
- * trend表实体类
+ * 专家动态
  */
+@Table(name = "trend")
+@Entity
 public class Trend implements EntityClass<Integer>  {
 
+    /**
+     * id
+     */
     private Integer id;
 
-    private Integer user_id;
-    //    动态内容
+    /**
+     * 所属用户
+     */
+    private User user;
+    /**
+     * 动态内容
+     */
     private String content;
-    //    配图id(多个用“，”号隔 开)
+    /**
+     * 配图id(多个用“，”号隔 开)
+     */
     private String image;
-
-    private DateTime create_time;
-
-//    get/set方法
+    /**
+     * 创建时间
+     */
+    private DateTime createTime;
 
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Id
@@ -31,18 +43,20 @@ public class Trend implements EntityClass<Integer>  {
         return id;
     }
 
-
     public void setId(Integer id) {
         this.id = id;
     }
 
-    public Integer getUser_id() {
-        return user_id;
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "user_id")
+    public User getUser() {
+        return user;
     }
 
-    public void setUser_id(Integer user_id) {
-        this.user_id = user_id;
+    public void setUser(User user) {
+        this.user = user;
     }
+
     @Column(name="content")
     @Basic
     public String getContent() {
@@ -52,6 +66,7 @@ public class Trend implements EntityClass<Integer>  {
     public void setContent(String content) {
         this.content = content;
     }
+
     @Column(name="image")
     @Basic
     public String getImage() {
@@ -61,13 +76,14 @@ public class Trend implements EntityClass<Integer>  {
     public void setImage(String image) {
         this.image = image;
     }
+
     @Column(name = "create_time")
     @Type(type="org.jadira.usertype.dateandtime.joda.PersistentDateTime")
-    public DateTime getCreate_time() {
-        return create_time;
+    public DateTime getCreateTime() {
+        return createTime;
     }
 
-    public void setCreate_time(DateTime create_time) {
-        this.create_time = create_time;
+    public void setCreateTime(DateTime createTime) {
+        this.createTime = createTime;
     }
 }

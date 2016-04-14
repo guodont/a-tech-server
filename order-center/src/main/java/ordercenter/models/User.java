@@ -96,12 +96,12 @@ public class User implements EntityClass<Integer> {
         this.userType = userType;
     }
 
-    @Column(name = "real_name")
-    @Basic
     public void setRealName(String realName) {
         this.realName = realName;
     }
 
+    @Column(name = "real_name")
+    @Basic
     public String getRealName() {
         return realName;
     }

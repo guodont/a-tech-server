@@ -1,5 +1,6 @@
 package ordercenter.models;
 
+import common.models.utils.EntityClass;
 import org.hibernate.annotations.Type;
 import org.joda.time.DateTime;
 import javax.persistence.*;
@@ -13,7 +14,7 @@ import javax.persistence.Table;
  */
 @Table(name = "admin")
 @Entity
-public class Admin {
+public class Admin implements EntityClass<Integer> {
     /**
      * 管理员ID
      */
@@ -49,11 +50,11 @@ public class Admin {
 
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Id
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
