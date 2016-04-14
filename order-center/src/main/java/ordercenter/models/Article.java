@@ -6,6 +6,8 @@ import ordercenter.constants.ArticleType;
 import org.hibernate.annotations.Type;
 import org.joda.time.DateTime;
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by lzadmin on 2016/4/12 0012.
@@ -31,29 +33,29 @@ public class Article implements EntityClass<Integer> {
      */
     private String key;
     /**
-     * 文章类型id
+     * 文章分类
      */
-    private Integer category_id;
+    private Category category;
     /**
-     * 管理员id
+     * 发布管理员
      */
-    private Integer admin_id;
+    private Admin admin;
     /**
      * 添加时间
      */
-    private DateTime create_time;
+    private DateTime createTime;
     /**
      * 更新时间
      */
-    private DateTime update_time;
+    private DateTime updateTime;
     /**
      * 排序
      */
-    private String sortType;
+    private Integer sort;
     /**
-     * 专家id
+     * 所属专家
      */
-    private Integer user_id;
+    private User user;
     /**
      * 点击次数
      */
@@ -70,6 +72,12 @@ public class Article implements EntityClass<Integer> {
      * 提交状态
      */
     private ArticleState articleState;
+
+    /**
+     * 文章评论
+     */
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "article")
+    private List<Comment> comments = new ArrayList<Comment>();
 
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Id
@@ -111,64 +119,64 @@ public class Article implements EntityClass<Integer> {
         this.key = key;
     }
 
-    @Column(name = "category_id")
-    @Basic
-    public Integer getCategory_id() {
-        return category_id;
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name="category_id")
+    public Category getCategory() {
+        return category;
     }
 
-    public void setCategory_id(Integer category_id) {
-        this.category_id = category_id;
+    public void setCategory(Category category) {
+        this.category = category;
     }
 
-    @Column(name = "admin_id")
-    @Basic
-    public Integer getAdmin_id() {
-        return admin_id;
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name="admin_id")
+    public Admin getAdmin() {
+        return admin;
     }
 
-    public void setAdmin_id(Integer admin_id) {
-        this.admin_id = admin_id;
+    public void setAdmin(Admin admin) {
+        this.admin = admin;
     }
 
     @Column(name = "create_time")
     @Type(type = "org.jadira.usertype.dateandtime.joda.PersistentDateTime")
-    public DateTime getCreate_time() {
-        return create_time;
+    public DateTime getCreateTime() {
+        return createTime;
     }
 
-    public void setCreate_time(DateTime create_time) {
-        this.create_time = create_time;
+    public void setCreateTime(DateTime createTime) {
+        this.createTime = createTime;
     }
 
     @Column(name = "update_time")
     @Type(type = "org.jadira.usertype.dateandtime.joda.PersistentDateTime")
-    public DateTime getUpdate_time() {
-        return update_time;
+    public DateTime getUpdateTime() {
+        return updateTime;
     }
 
-    public void setUpdate_time(DateTime update_time) {
-        this.update_time = update_time;
+    public void setUpdateTime(DateTime updateTime) {
+        this.updateTime = updateTime;
     }
 
-    @Column(name = "sortType")
+    @Column(name = "sort")
     @Basic
-    public String getSortType() {
-        return sortType;
+    public Integer getSort() {
+        return sort;
     }
 
-    public void setSortType(String sortType) {
-        this.sortType = sortType;
+    public void setSort(Integer sort) {
+        this.sort = sort;
     }
 
-    @Column(name = "user_id")
-    @Basic
-    public Integer getUser_id() {
-        return user_id;
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name="user_id")
+    public User getUser() {
+        return user;
     }
 
-    public void setUser_id(Integer user_id) {
-        this.user_id = user_id;
+    public void setUser(User user) {
+        this.user = user;
     }
 
     @Column(name = "click")
@@ -191,7 +199,7 @@ public class Article implements EntityClass<Integer> {
         this.image = image;
     }
 
-    @Column(name = "articleType")
+    @Column(name = "type")
     @Enumerated(EnumType.STRING)
     public ArticleType getArticleType() {
         return articleType;
@@ -211,4 +219,12 @@ public class Article implements EntityClass<Integer> {
         this.articleState = articleState;
     }
 
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "article")
+    public List<Comment> getComments() {
+        return comments;
+    }
+
+    public void setComments(List<Comment> comments) {
+        this.comments = comments;
+    }
 }

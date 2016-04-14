@@ -1,16 +1,17 @@
 package ordercenter.models;
 
+import common.models.utils.EntityClass;
+import ordercenter.constants.Position;
 import org.hibernate.annotations.Type;
 import org.joda.time.DateTime;
 import javax.persistence.*;
-import javax.swing.text.Position;
 
 /**
  * Created by llz on 2016/4/13.
  */
 @Table(name = "advertisement")
 @Entity
-public class Advertisement {
+public class Advertisement implements EntityClass<Integer> {
     /**
      * 广告ID
      */

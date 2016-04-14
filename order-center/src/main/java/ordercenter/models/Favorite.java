@@ -3,7 +3,6 @@ package ordercenter.models;
 import common.models.utils.EntityClass;
 import common.models.utils.OperableData;
 import ordercenter.constants.FavoriteType;
-import org.hibernate.annotations.Table;
 import org.hibernate.annotations.Type;
 import org.joda.time.DateTime;
 
@@ -13,38 +12,48 @@ import javax.persistence.*;
  * Created by lzadmin on 2016/4/12 0012.
  * favorite表的实体类
  */
-
+@Table(name = "expert")
 @Entity
 public class Favorite implements EntityClass<Integer> {
+    /**
+     * 收藏id
+     */
     private Integer id;
-    //    被收藏的id
-    private Integer fav_id;
-
-    private DateTime create_time;
-    //    收藏的类型
+    /**
+     * 被收藏的id
+     */
+    private Integer favId;
+    /**
+     * 收藏时间
+     */
+    private DateTime createTime;
+    /**
+     * 收藏的类型
+     */
     private FavoriteType favoriteType;
-    //    用户id
-    private Integer user_id;
+    /**
+     * 所属用户
+     */
+    private User user;
 
-    //    get/set方法
     @Column(name = "fav_id")
     @Basic
-    public Integer getFav_id() {
-        return fav_id;
+    public Integer getFavId() {
+        return favId;
     }
 
-    public void setFav_id(Integer fav_id) {
-        this.fav_id = fav_id;
+    public void setFavId(Integer favId) {
+        this.favId = favId;
     }
 
     @Column(name = "create_time")
     @Type(type = "org.jadira.usertype.dateandtime.joda.PersistentDateTime")
-    public DateTime getCreate_time() {
-        return create_time;
+    public DateTime getCreateTime() {
+        return createTime;
     }
 
-    public void setCreate_time(DateTime create_time) {
-        this.create_time = create_time;
+    public void setCreateTime(DateTime createTime) {
+        this.createTime = createTime;
     }
 
     @Column(name = "favoriteType")
@@ -57,14 +66,14 @@ public class Favorite implements EntityClass<Integer> {
         this.favoriteType = favoriteType;
     }
 
-    @Column(name = "user_id")
-    @Basic
-    public Integer getUser_id() {
-        return user_id;
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "user_id", insertable = true, updatable = true)
+    public User getUser() {
+        return user;
     }
 
-    public void setUser_id(Integer user_id) {
-        this.user_id = user_id;
+    public void setUser(User user) {
+        this.user = user;
     }
 
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -72,7 +81,6 @@ public class Favorite implements EntityClass<Integer> {
     public Integer getId() {
         return id;
     }
-
 
     public void setId(Integer id) {
         this.id = id;

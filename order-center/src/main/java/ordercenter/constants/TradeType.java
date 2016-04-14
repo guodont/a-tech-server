@@ -7,10 +7,9 @@ import common.models.utils.ViewEnum;
  * trade表中type属性的枚举类
  */
 public enum  TradeType implements ViewEnum{
-//    交易类型（SUPPLY:供应DEMANF:需
 
     SUPPLY("供应"),
-    DEMANF("需求");
+    DEMAND("需求");
     private String value;
 
     TradeType(String value) {

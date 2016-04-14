@@ -1,5 +1,6 @@
 package ordercenter.models;
 
+import common.models.utils.EntityClass;
 import org.hibernate.annotations.Type;
 import org.joda.time.DateTime;
 
@@ -8,7 +9,9 @@ import javax.persistence.*;
 /**
  * Created by j on 2016/4/12.
  */
-public class Comment {
+@Table(name = "comment")
+@Entity
+public class Comment implements EntityClass<Integer> {
     /**
      * id
      */
@@ -39,7 +42,7 @@ public class Comment {
         this.id = id;
     }
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "article_id", insertable = false, updatable = false)
     public Article getArticle() {
         return article;
