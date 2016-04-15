@@ -8,6 +8,7 @@ import common.utils.IdUtils;
 import common.utils.JsonUtils;
 import common.utils.page.PageFactory;
 import common.utils.play.PlayForm;
+import controllers.Secured;
 import ordercenter.constants.TestObjectStatus;
 import ordercenter.models.TestObject;
 import ordercenter.models.TestObjectItem;
@@ -17,6 +18,7 @@ import play.data.Form;
 import play.mvc.BodyParser;
 import play.mvc.Controller;
 import play.mvc.Result;
+import play.mvc.Security;
 import views.html.test.add;
 import views.html.test.list;
 import views.html.test.update;
@@ -28,6 +30,7 @@ import java.util.stream.Collectors;
 
 import static java.util.Optional.*;
 
+@Security.Authenticated(Secured.class)
 @org.springframework.stereotype.Controller
 public class TestObjectController extends Controller {
 

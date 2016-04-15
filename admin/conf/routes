@@ -22,3 +22,10 @@ GET         /test/objects/:id/json            @controllers.test.TestObjectContro
 #testCache
 GET         /cache/:key                       @controllers.test.CacheController.getCache(key)
 PUT         /cache/:key                       @controllers.test.CacheController.setCache(key, value)
+
+
+#管理员后台
+
+GET         /admin/login                      @controllers.admin.AuthenticationController.login()
+GET         /admin/logout                     @controllers.admin.AuthenticationController.logout()
+POST        /admin/login                      @controllers.admin.AuthenticationController.doLogin()

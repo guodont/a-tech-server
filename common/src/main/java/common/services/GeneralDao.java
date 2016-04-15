@@ -75,6 +75,16 @@ public class GeneralDao {
         return results;
     }
 
+    public <T> List<T> queryByJPQl(String ql, Map<String, Object> queryParams) {
+
+        Query query = em.createQuery(ql);
+        queryParams.forEach(query::setParameter);
+
+        List<T> results = query.getResultList();
+
+        return results;
+    }
+
     /**
      * 查询所有
      * @param type

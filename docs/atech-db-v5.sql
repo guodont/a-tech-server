@@ -67,7 +67,7 @@ CREATE TABLE `admin` (
   PRIMARY KEY  (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-INSERT INTO `atech`.`admin` (`id`, `name`, `email`, `password`, `phone`, `create_time`, `last_login_time`, `last_ip`) VALUES ('1', 'admin', 'admin@163.com', 'admin', '18404968725', '2016-04-14 20:22:51', '2016-04-14 20:22:51', '127.0.0.1');
+INSERT INTO `atech`.`admin` (`id`, `name`, `email`, `password`, `phone`, `create_time`, `last_login_time`, `last_ip`) VALUES ('1', 'admin', 'admin@163.com', 'e10adc3949ba59abbe56e057f20f883e', '18404968725', '2016-04-14 20:22:51', '2016-04-14 20:22:51', '127.0.0.1');
 
 -- ----------------------------
 -- Records of admin
