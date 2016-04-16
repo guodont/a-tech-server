@@ -56,8 +56,12 @@ public abstract class BaseTest {
         }
     }
 
-
-
+    /**
+     *
+     * @param callback
+     * @param <T>
+     * @return
+     */
     protected <T> T doInTransaction(EntityManagerCallback<T> callback) {
         EntityManagerFactory emf = BaseGlobal.ctx.getBean(EntityManagerFactory.class);
         EntityManager em = emf.createEntityManager();
@@ -66,11 +70,8 @@ public abstract class BaseTest {
         try {
             tx = em.getTransaction();
             tx.begin();
-
             T result = callback.call(em);
-
             tx.commit();
-
             return result;
         }
         catch (Exception e) {
