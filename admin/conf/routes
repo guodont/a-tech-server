@@ -29,3 +29,11 @@ PUT         /cache/:key                       @controllers.test.CacheController.
 GET         /admin/login                      @controllers.admin.AuthenticationController.login()
 GET         /admin/logout                     @controllers.admin.AuthenticationController.logout()
 POST        /admin/login                      @controllers.admin.AuthenticationController.doLogin()
+
+#分类管理
+
+GET         /admin/categories                 @controllers.admin.CategoryController.list(categoryType ?= null)
+GET         /admin/categories/add             @controllers.admin.CategoryController.addPage()
+POST        /admin/categories/save            @controllers.admin.CategoryController.saveCategory()
+GET         /admin/categories/:id/update      @controllers.admin.CategoryController.updatePage(id: Int)
+GET         /admin/categories/:id/delete      @controllers.admin.CategoryController.deleteCategory(id: Int)

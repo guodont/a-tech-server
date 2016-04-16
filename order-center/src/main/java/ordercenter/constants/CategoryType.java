@@ -8,7 +8,7 @@ import common.models.utils.ViewEnum;
  */
 public enum CategoryType implements ViewEnum {
 
-    ARTICLE("普通用户"),
+    ARTICLE("文章"),
     EXPERT("专家"),
     QUESTION("问题");
 

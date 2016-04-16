@@ -35,7 +35,6 @@ public class UserServiceTest extends BaseTest {
         return user;
     }
 
-
     void prepareUser(int size) {
         doInTransaction(em -> {
             em.createQuery("delete from User").executeUpdate();

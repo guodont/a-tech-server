@@ -1,0 +1,146 @@
+@(form: Form[ordercenter.models.Category])
+
+@main() {
+    <script type="text/javascript">
+            jQuery(function ($) {
+                $("#submit_btn").click(function () {
+                    $("#form1").submit();
+                });
+
+                $('#form1').validate({
+                    errorElement: 'div',
+                    errorClass: 'help-block',
+                    focusInvalid: true,
+                    rules: {
+                        pid: {required: true},
+                        name: {required: true},
+                        categoryType: {required: true},
+                        image: {required: true}
+                    },
+
+                    messages: {
+                        pid: {required: "请输入父编号"},
+                        name: {required: "请输入分类名称"},
+                        categoryType: {required: "请输入分类类型"},
+                        image: {required: "请输入图片地址"}
+                    },
+
+                    submitHandler: function (form) {
+                        var categoryType = $("#categoryType").val();
+                        if (categoryType != "ARTICLE") {
+                            bootbox.alert("分类类型请输入ARTICLE");
+                            return;
+                        }
+                        form.submit();
+                    }
+                });
+
+            });
+    </script>
+} {
+
+    <div class="breadcrumbs" id="breadcrumbs">
+        <script type="text/javascript">
+                try {
+                    ace.settings.check('breadcrumbs', 'fixed')
+                } catch (e) {
+                }
+        </script>
+
+        <ul class="breadcrumb">
+            <li>
+                <i class="icon-home home-icon"></i>分类管理
+            </li>
+            <li class="active"><a href="@controllers.admin.routes.CategoryController.updatePage(form.get.getId)">
+                测试分类修改</a></li>
+        </ul><!-- .breadcrumb -->
+    </div>
+
+    @tags.errorInfo(form)
+
+    <div class="page-content">
+        <div class="page-header">
+            <h1>
+                分类管理
+                <small>
+                    <i class="icon-double-angle-right"></i>测试分类修改
+                </small>
+            </h1>
+        </div>
+            <!-- /.page-header -->
+
+        <div class="row">
+            <div class="col-xs-12">
+                    <!-- PAGE CONTENT BEGINS -->
+
+                <form class="form-horizontal" role="form" id="form1" action="@controllers.admin.routes.CategoryController.saveCategory()" method="post">
+
+                    @if(form.value.isDefined && form.value.get.getId != null) {
+                        <input type="hidden" id="id" name="id" value="@form.value.get.getId" />
+                    }
+
+                    <div class="form-group">
+                        <label class="control-label col-xs-12 col-sm-3 no-padding-right" for="pid">父编号*</label>
+
+                        <div class="col-xs-12 col-sm-9">
+                            <div class="clearfix">
+                                <input type="text" name="pid" id="pid" class="col-xs-12 col-sm-6" value="@form.value.fold("")(_.getPid.toString)" />
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="control-label col-xs-12 col-sm-3 no-padding-right" for="name">分类名称*</label>
+
+                        <div class="col-xs-12 col-sm-9">
+                            <div class="clearfix">
+                                <input type="text" id="name" name="name" class="col-xs-12 col-sm-6" value='@form.value.fold("")(_.getName)'/>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="control-label col-xs-12 col-sm-3 no-padding-right" for="categoryType">分类类型*</label>
+
+                        <div class="col-xs-12 col-sm-9">
+                            <div class="clearfix">
+                                <input type="text" name="categoryType" id="categoryType" class="col-xs-12 col-sm-6" value="@form.value.fold("")(_.getType.toString)" />
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="control-label col-xs-12 col-sm-3 no-padding-right" for="image">图片*</label>
+
+                        <div class="col-xs-12 col-sm-9">
+                            <div class="clearfix">
+                                <input type="text" name="image" id="image" class="col-xs-12 col-sm-6" value="@form.value.fold("")(_.getImage)" />
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="space-4"></div>
+
+                    <div class="clearfix form-actions">
+                        <div class="col-md-offset-3 col-md-9">
+                            <button class="btn btn-info" type="button" id="submit_btn">
+                                <i class="icon-ok bigger-110"></i>
+                                提交
+                            </button>
+
+                                &nbsp; &nbsp; &nbsp;
+                            <button class="btn" type="reset">
+                                <i class="icon-undo bigger-110"></i>
+                                重置
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="hr hr-24"></div>
+
+                </form>
+
+            </div>
+        </div>
+    </div>
+}
